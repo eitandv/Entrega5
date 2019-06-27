@@ -8,11 +8,11 @@ import subprocess
 MESSAGES_KEYS = ['message', 'lat', 'long', 'date'] 
 
 # Se configura el uso de la base de datos en mongo
-mongod = subprocess.Popen('mongod', stdout=subprocess.DEVNULL)
-atexit.register(mongod.kill)
+#mongod = subprocess.Popen('mongod', stdout=subprocess.DEVNULL)
+#atexit.register(mongod.kill)
 
 # Configuraciones más amigables para el uso de la base de datos
-client = MongoClient('localhost')
+client = MongoClient('mongodb://eitandv:contrasena123@ds045054.mlab.com:45054/heroku_9kdd9r0g')
 db = client["test"]
 usuarios = db.users
 mensajes = db.messages
