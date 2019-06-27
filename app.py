@@ -12,7 +12,7 @@ MESSAGES_KEYS = ['message', 'lat', 'long', 'date']
 #atexit.register(mongod.kill)
 
 # Configuraciones más amigables para el uso de la base de datos
-client = MongoClient('mongodb://eitandv:contrasena123@ds045054.mlab.com:45054/heroku_9kdd9r0g')
+client = MongoClient('mongodb://admin:password123@ds239128.mlab.com:39128/heroku_mx3mlgdh')
 db = client["test"]
 usuarios = db.users
 mensajes = db.messages
