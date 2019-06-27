@@ -18,7 +18,7 @@ usuarios = db.users
 mensajes = db.messages
 
 # Se crea un índice de texto en la base de datos para poder hacer el text search
-mensajes.ensureIndex({'message', 'text'})
+mensajes.ensureIndex({'message': 'text'})
 
 app = Flask(__name__)
 
