@@ -5,14 +5,15 @@ import atexit
 import subprocess
 
 # Variable que muestra las keys de los mensajes
-MESSAGES_KEYS = ['message', 'lat', 'long', 'date'] 
+MESSAGES_KEYS = ['message', 'lat', 'long', 'date']
+USER_KEYS = ['uid', 'nombre', 'nacimiento', 'correo', 'nacionalidad']
 
 # Se configura el uso de la base de datos en mongo
 #mongod = subprocess.Popen('mongod', stdout=subprocess.DEVNULL)
 #atexit.register(mongod.kill)
 
 # Configuraciones más amigables para el uso de la base de datos
-#client = MongoClient("mongodb+srv://admin:thisisapassword321@test-rrldq.mongodb.net/test?retryWrites=true&w=majority")
+
 client = MongoClient('mongodb://admin:thisisapassword321@test-shard-00-00-rrldq.mongodb.net:27017,test-shard-00-01-rrldq.mongodb.net:27017,test-shard-00-02-rrldq.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true&w=majority')
 db = client["test"]
 usuarios = db.users
@@ -225,7 +226,7 @@ def new_message(uid1, uid2):
     data['sender'] = uid1
     data['receptant'] = uid2
     # Optiene el mayor id existente para poder generar un id único
-    last = list(mensajes.find({},{'mid':1, '_id':0}).limit(1).sort('mid',-1))
+    last = list(mensajes.find({}, {'mid': 1, '_id': 0}).limit(1).sort('mid', -1))
     data['mid'] = last[0]['mid'] + 1
     
     result = mensajes.insert_one(data)
@@ -237,6 +238,24 @@ def new_message(uid1, uid2):
         success = False
     return json.jsonify({'success': success, 'message': message})
     
+
+
+
+@app.route("/create_user", methods=['POST'])
+def new_user():
+    data = {key: request.json[key] for key in USER_KEYS}
+
+    result = usuarios.insert_one(data)
+    if (result):
+        message = "usuario creado con id {}".format(data['uid'])
+        success = True
+    else:
+        message = "No se pudo crear el usuario"
+        success = False
+    return json.jsonify({'success': success, 'message': message})
+    pass
+
+
 # Función que se ejecuta al usar la ruta 'localhost:"port"/messages/mid'
 # Recordar seleccionar la opción de delete en Postman
 @app.route('/messages/<int:mid>', methods=['DELETE'])
@@ -252,6 +271,8 @@ def delete_message(mid):
 
 # Función que se ejecuta al usar la ruta 'localhost:"port"/test'
 @app.route("/test")
+
+
 def test():
     """
     No recibe parametros
