@@ -12,13 +12,13 @@ MESSAGES_KEYS = ['message', 'lat', 'long', 'date']
 #atexit.register(mongod.kill)
 
 # Configuraciones más amigables para el uso de la base de datos
-client = MongoClient('mongodb://admin:password123@ds239128.mlab.com:39128/heroku_mx3mlgdh')
+client = MongoClient("mongodb://grupo41:grupo41@146.155.13.149/grupo41?authSource=admin")
 db = client["test"]
 usuarios = db.users
 mensajes = db.messages
 
 # Se crea un índice de texto en la base de datos para poder hacer el text search
-#mensajes.create_index([('message', 'text')])
+mensajes.create_index([('message', 'text')])
 
 app = Flask(__name__)
 
