@@ -13,7 +13,7 @@ MESSAGES_KEYS = ['message', 'lat', 'long', 'date']
 
 # Configuraciones más amigables para el uso de la base de datos
 #client = MongoClient("mongodb+srv://admin:thisisapassword321@test-rrldq.mongodb.net/test?retryWrites=true&w=majority")
-client = MongoClient('mongodb+srv://admin:thisisapassword321@test-rrldq.mongodb.net/test?retryWrites=true&w=majority')
+client = MongoClient('mongodb://admin:thisisapassword321@test-shard-00-00-rrldq.mongodb.net:27017,test-shard-00-01-rrldq.mongodb.net:27017,test-shard-00-02-rrldq.mongodb.net:27017/test?ssl=true&replicaSet=test-shard-0&authSource=admin&retryWrites=true&w=majority')
 db = client["test"]
 usuarios = db.users
 mensajes = db.messages

@@ -14,7 +14,6 @@ gunicorn = "*"
 Flask = "*"
 Jinja2 = "*"
 autopep8 = "*"
-dnspython = "*"
 
 [requires]
 python_version = "3.7"
