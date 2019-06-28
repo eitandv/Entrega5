@@ -12,7 +12,7 @@ MESSAGES_KEYS = ['message', 'lat', 'long', 'date']
 #atexit.register(mongod.kill)
 
 # Configuraciones más amigables para el uso de la base de datos
-client = MongoClient("mongodb://grupo41:grupo41@146.155.13.149/grupo41?authSource=admin")
+client = MongoClient("mongodb://grupo41:mehanhackeado@146.155.13.149/grupo41?authSource=admin")
 db = client["test"]
 usuarios = db.users
 mensajes = db.messages
