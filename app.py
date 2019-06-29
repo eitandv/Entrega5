@@ -37,7 +37,7 @@ def home():
 
 
 # Función que se ejecuta al usar la ruta 'localhost:"port"/users/"uid"'
-@app.route("/users/<int:uid>")
+@app.route("/users/<int:uid>", methods=['GET'])
 def get_user(uid):
     """
     Recibe un id de usuario que debe ser un int
@@ -77,6 +77,7 @@ def get_two_users(uid1, uid2):
                         'mensajes del {0} al {1}'
                         .format(uid2, uid1): messages2})
 
+
 # Función que se ejecuta al usar la ruta 'localhost:"port"/frase' o
 # al usar la ruta 'localhost:"port"/frase/uid'
 @app.route("/siosi/<frase>", defaults={'uid': None})
@@ -102,6 +103,7 @@ def text_search_siosi(frase,uid):
                                        {'$search': frase_consulta}},
                                        {'message': 1, '_id': 0}))
     return json.jsonify({'mensajes': messages1})
+
 
 # Función que se ejecuta al usar la ruta 'localhost:"port"/opcional' o
 # al usar la ruta 'localhost:"port"/opcional/uid'
