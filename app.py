@@ -294,6 +294,39 @@ def test():
     return "OK"
 
 
+### MODIFICACIONES PRO ENTREGA 5 ###
+
+# Función que se ejecuta al usar la ruta 'localhost:"port"/rusers/"uid"'
+@app.route("/rusers/<int:uid>")
+def get_recived_by_user(uid):
+    """
+    Recibe un id de usuario que debe ser un int
+    Retorna un diccionario con el contenido y el id del emisor de todos los
+    mensajes recibidos por el usuario
+    """
+    message = list(mensajes.find({'receptant': uid},
+                                 {'message' : 1, "sender": 1, '_id' : 0}))
+    return json.jsonify({'mensajes': message})
+"""
+NO USAR EN PROCESO DUDAS CON USO DE FECHAS
+# Función que se ejecuta al usar la ruta 'localhost:"port"/ubication/date1/date2'
+@app.route("/ubication/<int:uid/<date1>/<date2>")
+def get_ubication(uid, date1, date2):
+    """
+"""
+    Recibe dos fechas en formato yyyy-mm-dd y un id de usuario que debe ser un
+    int
+    Retorna un diccionario con la información de latitud, longitud y el 
+    contenido de todos los mensajes mandados por el usuario
+"""
+"""
+    message = list(mensajes.find({'sender': uid}, 
+                                 {'message' : 1, 'lat' : 1, 'long' : 1, 
+                                 'date': 1, '_id' : 0}))
+    return json.jsonify({'mensajes': message})
+"""
+
+
 
 if os.name == 'nt':
     app.run(debug = True)
