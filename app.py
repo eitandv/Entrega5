@@ -45,7 +45,7 @@ def get_user(uid):
     todos sus mensajes enviados
     """
     users = list(usuarios.find({'uid': uid}, {'_id': 0}))
-    message = list(mensajes.find({'sender': uid}, {'message': 1, 'receptant': 1}))
+    message = list(mensajes.find({'sender': uid}, {'message': 1, '_id': 0, 'receptant': 1}))
     return json.jsonify({'info usuario':users, 'mensajes': message})
 
 
