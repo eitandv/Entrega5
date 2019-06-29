@@ -35,6 +35,7 @@ def home():
     """
     return "<h1>Entrega 4 Grupo41</h1>"
 
+
 # Función que se ejecuta al usar la ruta 'localhost:"port"/users/"uid"'
 @app.route("/users/<int:uid>")
 def get_user(uid):
@@ -43,9 +44,10 @@ def get_user(uid):
     Retorna un diccionario con la información del usuario y el contenido de 
     todos sus mensajes enviados
     """
-    users = list(usuarios.find({'uid' : uid}, {'_id' : 0}))
-    message = list(mensajes.find({'sender': uid}, {'message' : 1, '_id' : 0}))
+    users = list(usuarios.find({'uid': uid}, {'_id': 0}))
+    message = list(mensajes.find({'sender': uid}, {}))
     return json.jsonify({'info usuario':users, 'mensajes': message})
+
 
 # Función que se ejecuta al usar la ruta 'localhost:"port"/messages/mid'
 @app.route("/messages/<int:mid>")
@@ -56,6 +58,7 @@ def get_message(mid):
     """
     message = list(mensajes.find({'mid': mid}, {'_id': 0}))
     return json.jsonify({'datos mensaje': message})
+
 
 # Función que se ejecuta al usar la ruta 'localhost:"port"/twousers/uid1/uid2'
 @app.route("/twousers/<int:uid1>/<int:uid2>")
