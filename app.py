@@ -312,6 +312,12 @@ def get_recived_by_user(uid):
     message = list(mensajes.find({'receptant': uid},
                                  {'message' : 1, "sender": 1, '_id' : 0}))
     return json.jsonify({'mensajes': message})
+
+@app.route("/susers/<int:uid>")
+def get_send_by_user(uid):
+    message = list(mensajes.find({'sender': uid},
+                                 {'message' : 1, "receptant": 1, '_id' : 0}))
+    return json.jsonify({'mensajes': message})
 """
 NO USAR EN PROCESO DUDAS CON USO DE FECHAS
 # Función que se ejecuta al usar la ruta 'localhost:"port"/ubication/date1/date2'
