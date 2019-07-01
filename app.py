@@ -175,7 +175,6 @@ def text_search_compuesto(frase, uid):
             frases_opcionales += elemento[1:] + ' '
         else:
             frases_no.append('"{0}'.format(elemento[1:]))
-    messages_no = []
     if frases_opcionales:
         frases_opcionales = frases_opcionales[0:-1]
     if uid == None:
@@ -188,6 +187,7 @@ def text_search_compuesto(frase, uid):
         else:
             messages = list(mensajes.find({},{'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
         if messages_no:
+            messages_no = []
             for i in frases_no:
                 messages_no += list(mensajes.find({'$text': {'$search': i}},
                                                {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
@@ -215,7 +215,7 @@ def text_search_compuesto(frase, uid):
                 de_real = False
         if de_real:
             mensajes_finales.append(element)
-    return json.jsonify({'mensajes': mensajes_finales, 'mensajes_no': messages_no})
+    return json.jsonify({'mensajes': mensajes_finales, 'mensajes_no': messages_no, 'frases_no': frases_no})
                                     
 
 
