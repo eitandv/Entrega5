@@ -208,7 +208,7 @@ def text_search_compuesto(frase, uid):
         for bad_element in messages_no:
             if element == bad_element:
                 messages.remove(bad_element)
-    return json.jsonify({'mensajes': messages})
+    return json.jsonify({'mensajes': messages, 'mensajes_no': messages_no})
                                     
 
 
