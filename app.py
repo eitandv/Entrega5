@@ -235,6 +235,7 @@ def new_message(uid1, uid2):
     data['mid'] = last[0]['mid'] + 1
     
     result = mensajes.insert_one(data)
+
     if (result):
         message = "mensaje creado con id {}".format(data['mid'])
         success = True
@@ -256,6 +257,24 @@ def new_user():
         success = True
     else:
         message = "No se pudo crear el usuario"
+        success = False
+    return json.jsonify({'success': success, 'message': message})
+    pass
+
+@app.route("/create_message", methods=['POST'])
+def new_message2():
+    MESSAGE_KEY2 = ['message', 'lat', 'long', 'date', 'sender', 'receptant']
+    data = {key: request.json[key] for key in MESSAGE_KEY2}
+
+    last = list(mensajes.find({}, {'mid': 1, '_id': 0}).limit(1).sort('mid', -1))
+    data['mid'] = last[0]['mid'] + 1
+
+    result = mensajes.insert_one(data)
+    if (result):
+        message = "mensaje creado con id {}".format(data['mid'])
+        success = True
+    else:
+        message = "No se pudo crear el mensaje"
         success = False
     return json.jsonify({'success': success, 'message': message})
     pass
