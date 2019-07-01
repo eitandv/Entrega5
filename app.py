@@ -186,7 +186,7 @@ def text_search_compuesto(frase, uid):
                                                  {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
         else:
             messages = list(mensajes.find({},{'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
-        if messages_no:
+        if frases_no:
             messages_no = []
             for i in frases_no:
                 messages_no += list(mensajes.find({'$text': {'$search': i}},
