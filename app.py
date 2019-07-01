@@ -204,11 +204,15 @@ def text_search_compuesto(frase, uid):
                                          {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
         messages_no = list(mensajes.find({'$text': {'$search': frases_no}, 
                                       'sender': uid},{'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
+    mensajes_finales = []
     for element in messages:
+        de_real = True
         for bad_element in messages_no:
             if element["message"] == bad_element["message"]:
-                messages.remove(element)
-    return json.jsonify({'mensajes': messages, 'mensajes_no': messages_no})
+                de_real = False
+        if de_real:
+            mensajes_finales.append(element)
+    return json.jsonify({'mensajes': mensajes_finales})
                                     
 
 
