@@ -167,18 +167,17 @@ def text_search_compuesto(frase, uid):
     frases = frase.split("..")
     frases_siosi = ''
     frases_opcionales = ''
-    frases_no = ''
+    frases_no = []
     for elemento in frases:
         if elemento[0] == "+":
             frases_siosi += '"{0}"'.format(elemento[1:])
         elif elemento[0] == "$":
             frases_opcionales += elemento[1:] + ' '
         else:
-            frases_no += elemento[1:] + ''
+            frases_no.append('"{0}'.format(elemento[1:]))
+    messages_no = []
     if frases_opcionales:
         frases_opcionales = frases_opcionales[0:-1]
-    if frases_no:
-        frases_no = frases_no[0:-1]
     if uid == None:
         if frases_siosi:
             messages = list(mensajes.find({'$text': {'$search': frases_siosi}},
@@ -188,7 +187,9 @@ def text_search_compuesto(frase, uid):
                                                  {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
         else:
             messages = list(mensajes.find({},{'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
-        messages_no = list(mensajes.find({'$text': {'$search': frases_no}},
+        if messages_no:
+            for i in frases_no:
+                messages_no += list(mensajes.find({'$text': {'$search': i}},
                                                {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
 
     # Caso con usuario especificado
