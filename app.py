@@ -261,6 +261,7 @@ def new_user():
     return json.jsonify({'success': success, 'message': message})
     pass
 
+
 @app.route("/create_message", methods=['POST'])
 def new_message2():
     MESSAGE_KEY2 = ['message', 'lat', 'long', 'date', 'sender', 'receptant']
