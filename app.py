@@ -174,9 +174,11 @@ def text_search_compuesto(frase, uid):
         elif elemento[0] == "$":
             frases_opcionales += elemento[1:] + ' '
         else:
-            frases_no += '"{0}"'.format(elemento[1:])
+            frases_no += elemento[1:] + ''
     if frases_opcionales:
         frases_opcionales = frases_opcionales[0:-1]
+    if frases_no:
+        frases_no = frases_no[0:-1]
     if uid == None:
         if frases_siosi:
             messages = list(mensajes.find({'$text': {'$search': frases_siosi}},
