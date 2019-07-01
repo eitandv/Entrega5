@@ -182,30 +182,30 @@ def text_search_compuesto(frase, uid):
     if uid == None:
         if frases_siosi:
             messages = list(mensajes.find({'$text': {'$search': frases_siosi}},
-                                                    {'message': 1, '_id': 0}))
+                                                    {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1}))
         elif frases_opcionales:
             messages = list(mensajes.find({'$text': {'$search': frases_opcionales}},
-                                                 {'message': 1, '_id': 0}))
+                                                 {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1}))
         else:
-            messages = list(mensajes.find({},{'message': 1, '_id': 0}))
+            messages = list(mensajes.find({},{'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1}))
         messages_no = list(mensajes.find({'$text': {'$search': frases_no}},
-                                               {'message': 1, '_id': 0}))
+                                               {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1}))
 
     # Caso con usuario especificado
     else:
         if frases_siosi:
             messages = list(mensajes.find({'sender': uid, '$text': 
                                         {'$search': frases_siosi}},
-                                        {'message': 1, '_id': 0}))
+                                        {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1}))
         elif frases_opcionales:
             messages = list(mensajes.find({'sender': uid, '$text': 
                                        {'$search': frases_opcionales}},
-                                       {'message': 1, '_id': 0}))
+                                       {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1}))
         else:
             messages = list(mensajes.find({'sender': uid},
-                                         {'message': 1, '_id': 0}))
+                                         {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1}))
         messages_no = list(mensajes.find({'$text': {'$search': frases_no}, 
-                                      'sender': uid},{'message': 1, '_id': 0}))
+                                      'sender': uid},{'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1}))
     for element in messages:
         for bad_element in messages_no:
             if element == bad_element:
