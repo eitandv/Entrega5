@@ -168,6 +168,7 @@ def text_search_compuesto(frase, uid):
     frases_siosi = ''
     frases_opcionales = ''
     frases_no = []
+    messages_no = []
     for elemento in frases:
         if elemento[0] == "+":
             frases_siosi += '"{0}"'.format(elemento[1:])
@@ -187,7 +188,6 @@ def text_search_compuesto(frase, uid):
         else:
             messages = list(mensajes.find({},{'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
         if frases_no:
-            messages_no = []
             for i in frases_no:
                 messages_no += list(mensajes.find({'$text': {'$search': i}},
                                                {'message': 1, '_id': 0, 'receptant': 1, 'lat': 1, 'long': 1, 'date': 1, 'mid': 1, 'sender': 1}))
