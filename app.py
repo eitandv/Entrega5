@@ -214,7 +214,7 @@ def text_search_compuesto(frase, uid):
                 de_real = False
         if de_real:
             mensajes_finales.append(element)
-    return json.jsonify({'mensajes': mensajes_finales}, 'mensajes_no': messages_no)
+    return json.jsonify({'mensajes': mensajes_finales, 'mensajes_no': messages_no})
                                     
 
 
